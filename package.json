@@ -2,7 +2,7 @@
   "name": "textn-tech",
   "version": "1.0.0",
   "description": "A tech blog full-stack web-application that allows users to speak on tech-related topics.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

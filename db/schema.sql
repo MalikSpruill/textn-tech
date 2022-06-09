@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS textn_base;
+CREATE DATABASE textn_base;
