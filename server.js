@@ -8,7 +8,7 @@ const sequelize = require('./config/config');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//app.use(require('./routes/'));
+app.use(require('./controllers'));
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
