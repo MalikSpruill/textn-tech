@@ -4,6 +4,8 @@
   "description": "A tech blog full-stack web-application that allows users to speak on tech-related topics.",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon server.js",
+    "seed": "node seeds/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
