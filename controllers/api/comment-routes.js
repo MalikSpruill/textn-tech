@@ -20,11 +20,78 @@ router.route('/')
     })
 })
 .post((req,res) => {
-    Comment.create(req.body)
-    .then((comment) => {
-        if (req.body.comments.length) {
-            
+    Comment.create({
+        comment_text: req.body.comment_text,
+        post_id: req.body.post_id,
+        user_id: req.session.user_id
+    })
+    .then(commentData => res.json(commentData))
+    .catch(err => {
+        console.log(err);
+        res.status(400).json(err)
+    })
+})
+
+router.route('/:id')
+.get((req, res) => {
+    Comment.update(
+        {
+            where: {
+                id: req.params.id
+            }
         }
+    )
+    .then(commentData => {
+        if (!commentData) {
+            res.status(404).json({message: 'No comment found that matches this id!'});
+            return;
+        }
+        res.json(commentData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+})
+.put((req, res) => {
+    Comment.update(
+        {
+            comment_text: req.body.comment_text
+        },
+        {
+            where: {
+                id: req.params.id
+            }
+        }
+    )
+    .then(commentData => {
+        if (!commentData) {
+            res.status(404).json({message: 'No comment found that matches this id!'});
+            return;
+        }
+        res.json(commentData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+})
+.delete((req, res) => {
+    Comment.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(commentData => {
+        if (!commentData) {
+            res.status(404).json({message: 'No comment found that matches this id!'});
+            return;
+        }
+        res.json(commentData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     })
 })
 
