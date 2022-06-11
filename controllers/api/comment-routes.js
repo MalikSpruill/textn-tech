@@ -23,9 +23,12 @@ router.route('/')
     Comment.create({
         comment_text: req.body.comment_text,
         post_id: req.body.post_id,
-        user_id: req.session.user_id
+        user_id: req.body.user_id//req.session.user_id
     })
-    .then(commentData => res.json(commentData))
+    .then(commentData => res.json({
+        message: "A new comment has been created",
+        comment_details: commentData
+    }))
     .catch(err => {
         console.log(err);
         res.status(400).json(err)
@@ -87,7 +90,10 @@ router.route('/:id')
             res.status(404).json({message: 'No comment found that matches this id!'});
             return;
         }
-        res.json(commentData);
+        res.json({
+            message: "Comment has been deleted",
+            comment_details: commentData
+        });
     })
     .catch(err => {
         console.log(err);
