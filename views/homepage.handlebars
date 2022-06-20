@@ -1,0 +1,12 @@
+<ol class="post-list flex flex-col justify-center items-center mt-5 h-full">
+  <h2 class="text-3xl">Tech Posts</h2>
+  {{#each posts as |post|}}
+  <li class="">
+    {{> post-info post}}
+  </li>                 
+  {{/each}}
+</ol>
+
+{{#if loggedIn}}
+<script src="/javascript/logout.js"></script>
+{{/if}}

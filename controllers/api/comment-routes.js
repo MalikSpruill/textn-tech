@@ -23,7 +23,7 @@ router.route('/')
     Comment.create({
         comment_text: req.body.comment_text,
         post_id: req.body.post_id,
-        user_id: req.body.user_id//req.session.user_id
+        user_id: req.session.user_id
     })
     .then(commentData => res.json({
         message: "A new comment has been created",

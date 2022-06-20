@@ -1,0 +1,37 @@
+<div class="flex flex-col justify-center items-center  w-full h-full">
+  <form class="login-form flex flex-col p-3 my-10 w-1/5 h-2/6 border-2 border-neutral-400 rounded-lg">
+    <h3 class="self-center font-bold">LOGIN</h3>
+    <div class="flex justify-between  my-5">
+      <label for="username-login">username:</label>
+      <input class="border-2 border-slate-900 rounded-lg p-1" type="text" id="username-login" placeholder="username"/>
+    </div>
+    <div class="flex justify-between  my-5">
+      <label for="password-login">password:</label>
+      <input class="border-2 border-slate-900 rounded-lg p-1" type="password" id="password-login" placeholder="password" />
+    </div>
+    <div class="my-5">
+      <button class="signup-btn ml-10 w-1/5 border-2 border-indigo-600 rounded-lg font-bold bg-emerald-300">login</button>
+    </div>
+  </form>
+
+  <form class="signup-form flex flex-col my-10 p-3 w-1/5 h-2/6 border-2 border-neutral-400 rounded-lg">
+    <h3 class="self-center font-bold">SIGNUP</h3>
+    <div class="flex justify-between  my-5">
+      <label for="username-signup">username:</label>
+      <input class="border-2 border-slate-900 rounded-lg p-1" type="text" id="username-signup" placeholder="username"/>
+    </div>
+    <div class="flex justify-between  my-5">
+      <label for="password-signup">password:</label>
+      <input class=" border-2 border-slate-900 rounded-lg p-1" type="password" id="password-signup" placeholder="password" />
+    </div>
+    <div class="w-full">
+      <button class="ml-10 w-1/5 border-2 border-indigo-600 rounded-lg font-bold bg-emerald-300" type="submit">signup</button>
+    </div>
+  </form>
+</div>
+
+<script src="/javascript/login-state.js"></script>
+
+{{#if loggedIn}}
+<script src="/javascript/logout.js"></script>
+{{/if}}

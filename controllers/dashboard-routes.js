@@ -9,7 +9,7 @@ router.get('/', withAuth, (req, res) => {
       },
       attributes: [
         'id',
-        'post_url',
+        'post_message',
         'title',
         'created_at',
       ],
@@ -31,7 +31,9 @@ router.get('/', withAuth, (req, res) => {
       .then(postData => {
         // serialize data before passing to template
         const posts = postData.map(post => post.get({ plain: true }));
-        res.render('dashboard', { posts, loggedIn: true });
+        const loggedIn = req.session.loggedIn;
+        console.log(posts);
+        res.render('dashboard', { posts, loggedIn, layout: 'main'});
       })
       .catch(err => {
         console.log(err);
@@ -46,7 +48,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
     },
     attributes: [
       'id',
-      'post_url',
+      'post_message',
       'title',
       'created_at',
     ],
@@ -71,10 +73,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
         return;
       }
       const post = postData.get({ plain: true });
+      const loggedIn = req.session.loggedIn;
 
       res.render('edit-post', {
        post,
-       loggedIn: true
+       loggedIn,
+       layout: 'main'
       });
     })
     .catch(err => {

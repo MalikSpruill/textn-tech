@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   Post.findAll({
     attributes: [
       'id',
-      'post_url',
+      'post_message',
       'title',
       'created_at',
     ],
@@ -27,8 +27,10 @@ router.get('/', (req, res) => {
   })
     .then(postData => {
       const posts = postData.map(post => post.get({plain: true})); 
+      const loggedIn = req.session.loggedIn;
+      console.log(posts);
       res.render('homepage', {posts,
-      loggedIn: req.session.loggedIn});
+      loggedIn, layout: 'main'});
     })
     .catch(err => {
       console.log(err);
@@ -51,7 +53,7 @@ router.get('/post/:id', (req, res) => {
     },
     attributes: [
       'id',
-      'post_url',
+      'post_message',
       'title',
       'created_at',
     ],
@@ -77,11 +79,14 @@ router.get('/post/:id', (req, res) => {
       }
 
       // serialize the data
-      const post = postData.get({ plain: true });
-
+      console.log('=========postdata=======',postData);
+      const posts = postData.get({ plain: true });
+      console.log(posts);
+      const loggedIn = req.session.loggedIn;
       res.render('single-post', { 
-        post,
-        loggedIn: req.session.loggedIn
+        posts,
+        loggedIn,
+        layout: 'main'
        });
     })
     .catch(err => {

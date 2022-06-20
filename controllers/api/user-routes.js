@@ -16,17 +16,12 @@ router.route('/')
         password: req.body.password
     })
     .then(userData => {
-        // req.session.save(() => {
-        //     req.session.customer_id = userData.id;
-        //     req.session.username = userData.username;
-        //     req.session.loggedIn = true;
-        //     console.log("User Created!");
-        //     res.json(userData);
-        // }) 
-        res.json({
-            message: "User has been created!",
-            user: userData
-        });
+        req.session.save(() => {
+            req.session.user_id = userData.id;
+            req.session.username = userData.username;
+            req.session.loggedIn = true;
+            res.json(userData);
+        }) 
     })
     .catch(err => {
         console.log(err);
@@ -62,31 +57,29 @@ router.route('/:id')
     })
 })
 
-router.post('/login', (req, res) => {
-    User.findOne({
+router.post('/login', async (req, res) => {
+     const user = await User.findOne({
       where: {
         username: req.body.username,
       }
-    }).then(userData => {
-      if (!userData) {
-        res.status(400).json({ message: 'No user with the specified username' });
-        return;
-      }
-      const validPassword = userData.checkPassword(req.body.password);
-  
+    });
+    if (user) {
+      const validPassword = user.checkPassword(req.body.password);
       if (!validPassword) {
-        res.status(400).json({ message: 'Incorrect password!' });
+        res.status(400).json({message: 'User not found'});
         return;
       }
       req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.username = userData.username;
+        req.session.user_id = user.id;
+        req.session.username = user.username;
         req.session.loggedIn = true;
+
+        res.json({user, message: 'You are now logged in.'});
+      })
+    } else {
+      res.status(400).json({})
+    }})
   
-        res.json({ user: userData, message: 'You are now logged in!' });
-      });
-    });
-  });
   
   router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
