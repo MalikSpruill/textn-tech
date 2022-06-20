@@ -5,6 +5,8 @@
   ## Description
   A tech blog full-stack web-application that allows users to speak on tech-related topics.
 
+  Click to view web app: https://textn-tech.herokuapp.com/
+
   
   ## Table of Contents
   * [Installation](#installation)
